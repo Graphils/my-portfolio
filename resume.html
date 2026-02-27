@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Grah Akwasi Philip</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060608;
+      --card: #111118;
+      --border: rgba(255,255,255,0.08);
+      --accent: #E8C547;
+      --accent3: #7C6FFF;
+      --text: #F0EEE9;
+      --muted: #7A7A8A;
+      --green: #3DBA74;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(20px);
+    }
+    .top-bar a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .top-bar a:hover { color: var(--accent); }
+    .print-btn {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 9px 22px;
+      border-radius: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .print-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(232,197,71,0.3); }
+
+    /* RESUME CARD */
+    .resume-wrapper {
+      max-width: 860px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }
+    .resume-card {
+      background: #0e0e14;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    .resume-header {
+      background: linear-gradient(135deg, #111118 0%, #0d0d18 100%);
+      padding: 48px 52px;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 36px;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .resume-header::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,197,71,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .resume-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid rgba(232,197,71,0.3);
+      flex-shrink: 0;
+    }
+    .resume-name {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .resume-name span { color: var(--accent); }
+    .resume-title-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+    .resume-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .rc-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9090A8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .rc-item:hover { color: var(--accent); }
+    .rc-dot {
+      width: 4px; height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* BODY */
+    .resume-body {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+    }
+    .resume-main { padding: 44px 52px; border-right: 1px solid var(--border); }
+    .resume-side { padding: 44px 36px; }
+
+    /* SECTION */
+    .rs-section { margin-bottom: 40px; }
+    .rs-section:last-child { margin-bottom: 0; }
+    .rs-heading {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* SUMMARY */
+    .rs-summary {
+      font-size: 14px;
+      line-height: 1.85;
+      color: #9090A8;
+    }
+
+    /* EXPERIENCE ITEMS */
+    .rs-exp { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .rs-exp:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .rs-exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 3px; flex-wrap: wrap; }
+    .rs-exp-role {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .rs-exp-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 1px;
+      white-space: nowrap;
+      padding: 3px 10px;
+      background: rgba(232,197,71,0.08);
+      border-radius: 100px;
+    }
+    .rs-exp-company {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .rs-exp-desc {
+      font-size: 13px;
+      line-height: 1.75;
+      color: #8888A0;
+    }
+
+    /* PROJECTS */
+    .rs-proj { margin-bottom: 20px; }
+    .rs-proj-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rs-proj-badge {
+      font-size: 9px;
+      font-family: 'DM Mono', monospace;
+      padding: 2px 8px;
+      border-radius: 100px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .badge-hack { background: rgba(124,111,255,0.12); color: var(--accent3); border: 1px solid rgba(124,111,255,0.2); }
+    .badge-proj { background: rgba(61,186,116,0.1); color: #3DBA74; border: 1px solid rgba(61,186,116,0.2); }
+    .rs-proj-desc {
+      font-size: 12px;
+      color: #8888A0;
+      line-height: 1.65;
+    }
+    .rs-proj-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 7px;
+    }
+    .rs-tech-tag {
+      font-size: 9px;
+      font-family: 'DM Mono', monospace;
+      padding: 3px 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--muted);
+    }
+
+    /* SIDE SKILLS */
+    .rs-skill-group { margin-bottom: 24px; }
+    .rs-skill-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .rs-skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .rs-skill-tag {
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      padding: 5px 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: #c0c0d0;
+      transition: border-color 0.2s;
+    }
+    .rs-skill-tag:hover { border-color: rgba(232,197,71,0.3); }
+
+    /* EDUCATION SIDE */
+    .rs-edu { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .rs-edu:last-child { border-bottom: none; }
+    .rs-edu-degree { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .rs-edu-school {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .rs-edu-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    /* ACHIEVEMENT */
+    .rs-achievement {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      background: rgba(124,111,255,0.05);
+      border: 1px solid rgba(124,111,255,0.15);
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    .ra-icon { font-size: 20px; flex-shrink: 0; }
+    .ra-text { font-size: 12px; line-height: 1.6; color: #9090A8; }
+    .ra-text strong { color: var(--text); display: block; margin-bottom: 2px; font-size: 13px; }
+
+    /* PRINT STYLES */
+    @media print {
+      body { background: white; color: #111; }
+      .top-bar { display: none; }
+      .resume-wrapper { margin: 0; padding: 0; max-width: 100%; }
+      .resume-card {
+        background: white;
+        border: none;
+        border-radius: 0;
+      }
+      .resume-header { background: #f8f8f8; }
+      .resume-name { color: #111; }
+      .resume-name span { color: #c5a020; }
+      .resume-title-line { color: #666; }
+      .rc-item { color: #444; }
+      .rs-heading { color: #c5a020; border-bottom-color: #ddd; }
+      .rs-summary, .rs-exp-desc, .rs-proj-desc { color: #444; }
+      .rs-exp-role, .rs-proj-name, .rs-edu-degree, .rs-exp-company { color: #111; }
+      .rs-exp-date { background: #f0e8c0; color: #8a6c00; }
+      .rs-skill-tag { background: #f5f5f5; color: #333; border-color: #ddd; }
+      .rs-proj-badge.badge-hack { background: #f0eeff; color: #5048c0; }
+      .rs-proj-badge.badge-proj { background: #e8fff4; color: #1a8a4a; }
+      .rs-achievement { background: #f0eeff; border-color: #c0b8ff; }
+      .ra-text { color: #444; }
+      .ra-text strong { color: #111; }
+      .resume-body { display: grid; }
+      .resume-main { border-right-color: #eee; }
+      .resume-photo { border-color: #c5a020; }
+    }
+
+    @media (max-width: 700px) {
+      .resume-header { grid-template-columns: 1fr; text-align: center; padding: 32px 24px; }
+      .resume-photo { width: 90px; height: 90px; margin: 0 auto; }
+      .resume-contacts { justify-content: center; }
+      .resume-body { grid-template-columns: 1fr; }
+      .resume-main { padding: 32px 24px; border-right: none; border-bottom: 1px solid var(--border); }
+      .resume-side { padding: 32px 24px; }
+      .top-bar { padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="index.html">← Back to Portfolio</a>
+  <button class="print-btn" onclick="window.print()">⬇ Download / Print</button>
+</div>
+
+<div class="resume-wrapper">
+  <div class="resume-card">
+
+    <!-- HEADER -->
+    <div class="resume-header">
+      <img class="resume-photo" src="profile.jpg" alt="Grah Akwasi Philip" />
+      <div>
+        <h1 class="resume-name">Grah Akwasi <span>Philip</span></h1>
+        <p class="resume-title-line">Full Stack Developer &nbsp;·&nbsp; UI/UX Designer &nbsp;·&nbsp; Founder, TechTide Stratum</p>
+        <div class="resume-contacts">
+          <a class="rc-item" href="mailto:philipgrah27@gmail.com">
+            <span class="rc-dot"></span> philipgrah27@gmail.com
+          </a>
+          <a class="rc-item" href="tel:+233241708799">
+            <span class="rc-dot"></span> 0241708799
+          </a>
+          <a class="rc-item" href="https://wa.me/233505760204" target="_blank">
+            <span class="rc-dot"></span> WhatsApp: 0505760204
+          </a>
+          <a class="rc-item" href="https://github.com/Graphils" target="_blank">
+            <span class="rc-dot"></span> github.com/Graphils
+          </a>
+          <a class="rc-item" href="https://www.linkedin.com/in/philip-grah-044b292b5/" target="_blank">
+            <span class="rc-dot"></span> LinkedIn
+          </a>
+          <a class="rc-item" href="https://x.com/Graphilzz" target="_blank">
+            <span class="rc-dot"></span> @Graphilzz
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="resume-body">
+
+      <!-- MAIN COLUMN -->
+      <div class="resume-main">
+
+        <div class="rs-section">
+          <div class="rs-heading">Professional Summary</div>
+          <p class="rs-summary">
+            I am a passionate Full Stack Developer and UI/UX Designer from Ghana, currently in my third year of a BSc in Information Technology at Ghana Communication Technology University (GCTU), where I started in 2023 with an expected graduation in 2027. I am the founder of TechTide Stratum, a technology startup dedicated to building impactful digital products. With hands-on experience across frontend and backend technologies, I have delivered over 10 projects ranging from civic hazard reporting platforms to AI-powered city management systems. I bring both creative vision and technical depth to every project I take on.
+          </p>
+        </div>
+
+        <div class="rs-section">
+          <div class="rs-heading">Experience</div>
+
+          <div class="rs-exp">
+            <div class="rs-exp-header">
+              <div class="rs-exp-role">Founder &amp; Lead Developer</div>
+              <div class="rs-exp-date">2025 – Present</div>
+            </div>
+            <div class="rs-exp-company">TechTide Stratum</div>
+            <p class="rs-exp-desc">Founded and lead TechTide Stratum, a Ghana-based technology startup. Responsible for product strategy, full stack development, UI/UX design, and client delivery. Building digital solutions that serve real communities and organizations.</p>
+          </div>
+
+          <div class="rs-exp">
+            <div class="rs-exp-header">
+              <div class="rs-exp-role">Gen AI Hackathon 2026 Participant</div>
+              <div class="rs-exp-date">2026</div>
+            </div>
+            <div class="rs-exp-company">City of Montgomery AI Challenge</div>
+            <p class="rs-exp-desc">Built an intelligent hazard report filtering system for the City of Montgomery using Claude AI, NLP, and Python. The system distinguishes real emergency reports from false ones, helping city officials prioritize responses more effectively.</p>
+          </div>
+
+          <div class="rs-exp">
+            <div class="rs-exp-header">
+              <div class="rs-exp-role">Software Development Intern</div>
+              <div class="rs-exp-date">2024</div>
+            </div>
+            <div class="rs-exp-company">Shadow Fox</div>
+            <p class="rs-exp-desc">Worked on real-world software projects as part of a professional development team. Gained experience with agile workflows, code reviews, and shipping client-facing product features on schedule.</p>
+          </div>
+
+          <div class="rs-exp">
+            <div class="rs-exp-header">
+              <div class="rs-exp-role">IT / Software Intern</div>
+              <div class="rs-exp-date">2023</div>
+            </div>
+            <div class="rs-exp-company">Trust Hospital</div>
+            <p class="rs-exp-desc">Contributed to healthcare software systems at Trust Hospital. Developed an understanding of how technology can improve clinical workflows, patient data management, and hospital operations.</p>
+          </div>
+
+        </div>
+
+        <div class="rs-section">
+          <div class="rs-heading">Key Projects</div>
+
+          <div class="rs-proj">
+            <div class="rs-proj-name">
+              City of Montgomery AI Report Filter
+              <span class="rs-proj-badge badge-hack">Hackathon 2026</span>
+            </div>
+            <p class="rs-proj-desc">AI-powered system that filters false hazard reports for city government using Claude AI and machine learning.</p>
+            <div class="rs-proj-tech">
+              <span class="rs-tech-tag">Claude AI</span>
+              <span class="rs-tech-tag">Python</span>
+              <span class="rs-tech-tag">Django</span>
+              <span class="rs-tech-tag">React</span>
+              <span class="rs-tech-tag">PostgreSQL</span>
+            </div>
+          </div>
+
+          <div class="rs-proj">
+            <div class="rs-proj-name">
+              CivicTide
+              <span class="rs-proj-badge badge-proj">Live</span>
+            </div>
+            <p class="rs-proj-desc">A community hazard reporting platform with real-time notifications and a dashboard for local authorities.</p>
+            <div class="rs-proj-tech">
+              <span class="rs-tech-tag">React</span>
+              <span class="rs-tech-tag">Django</span>
+              <span class="rs-tech-tag">WebSockets</span>
+              <span class="rs-tech-tag">PostgreSQL</span>
+            </div>
+          </div>
+
+          <div class="rs-proj">
+            <div class="rs-proj-name">Streaming Platform</div>
+            <p class="rs-proj-desc">A full-featured video streaming site with content library, authentication, and subscription management.</p>
+            <div class="rs-proj-tech">
+              <span class="rs-tech-tag">Next.js</span>
+              <span class="rs-tech-tag">React</span>
+              <span class="rs-tech-tag">MongoDB</span>
+            </div>
+          </div>
+
+          <div class="rs-proj">
+            <div class="rs-proj-name">Clinic Appointment Booking System</div>
+            <p class="rs-proj-desc">Online booking platform for clinics with doctor availability, patient management, and automated reminders.</p>
+            <div class="rs-proj-tech">
+              <span class="rs-tech-tag">React</span>
+              <span class="rs-tech-tag">Flask</span>
+              <span class="rs-tech-tag">MySQL</span>
+            </div>
+          </div>
+
+          <div class="rs-proj">
+            <div class="rs-proj-name">Other Builds</div>
+            <p class="rs-proj-desc">Library Management System, Employee Log System, Real-Time Chat System, Distributed Management System.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SIDE COLUMN -->
+      <div class="resume-side">
+
+        <div class="rs-section">
+          <div class="rs-heading">Education</div>
+          <div class="rs-edu">
+            <div class="rs-edu-degree">BSc Information Technology <span style="font-size:9px;color:var(--green);font-family:'DM Mono',monospace;margin-left:6px;">● In Progress</span></div>
+            <div class="rs-edu-school">Ghana Communication Technology University (GCTU)</div>
+            <div class="rs-edu-year">2023 – 2027 (Expected) · Currently Year 3</div>
+          </div>
+        </div>
+
+        <div class="rs-section">
+          <div class="rs-heading">Skills</div>
+
+          <div class="rs-skill-group">
+            <div class="rs-skill-cat">Frontend</div>
+            <div class="rs-skill-tags">
+              <span class="rs-skill-tag">React</span>
+              <span class="rs-skill-tag">Next.js</span>
+              <span class="rs-skill-tag">JavaScript</span>
+              <span class="rs-skill-tag">HTML5</span>
+              <span class="rs-skill-tag">CSS3</span>
+              <span class="rs-skill-tag">UI/UX Design</span>
+            </div>
+          </div>
+
+          <div class="rs-skill-group">
+            <div class="rs-skill-cat">Backend</div>
+            <div class="rs-skill-tags">
+              <span class="rs-skill-tag">Python</span>
+              <span class="rs-skill-tag">Django</span>
+              <span class="rs-skill-tag">Flask</span>
+              <span class="rs-skill-tag">REST APIs</span>
+              <span class="rs-skill-tag">WebSockets</span>
+            </div>
+          </div>
+
+          <div class="rs-skill-group">
+            <div class="rs-skill-cat">Databases</div>
+            <div class="rs-skill-tags">
+              <span class="rs-skill-tag">PostgreSQL</span>
+              <span class="rs-skill-tag">MySQL</span>
+              <span class="rs-skill-tag">MongoDB</span>
+              <span class="rs-skill-tag">MySQL Workbench</span>
+            </div>
+          </div>
+
+          <div class="rs-skill-group">
+            <div class="rs-skill-cat">Tools &amp; Other</div>
+            <div class="rs-skill-tags">
+              <span class="rs-skill-tag">Claude AI</span>
+              <span class="rs-skill-tag">Git</span>
+              <span class="rs-skill-tag">GitHub</span>
+              <span class="rs-skill-tag">Game Dev (Learning)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rs-section">
+          <div class="rs-heading">Achievements</div>
+
+          <div class="rs-achievement">
+            <div class="ra-icon">🏆</div>
+            <div class="ra-text">
+              <strong>Gen AI Hackathon 2026</strong>
+              Built a production-ready AI system for the City of Montgomery that filters false hazard reports using Claude AI and NLP.
+            </div>
+          </div>
+
+          <div class="rs-achievement" style="background:rgba(232,197,71,0.04);border-color:rgba(232,197,71,0.15);">
+            <div class="ra-icon">🚀</div>
+            <div class="ra-text">
+              <strong>Founded TechTide Stratum</strong>
+              Launched a technology startup focused on community-driven digital products.
+            </div>
+          </div>
+        </div>
+
+        <div class="rs-section">
+          <div class="rs-heading">Contact</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="mailto:philipgrah27@gmail.com" style="font-family:'DM Mono',monospace;font-size:11px;color:#9090A8;text-decoration:none;display:flex;gap:8px;align-items:center;transition:color 0.2s;" onmouseover="this.style.color='#E8C547'" onmouseout="this.style.color='#9090A8'">
+              <span style="color:var(--accent)">✉</span> philipgrah27@gmail.com
+            </a>
+            <a href="tel:+233241708799" style="font-family:'DM Mono',monospace;font-size:11px;color:#9090A8;text-decoration:none;display:flex;gap:8px;align-items:center;">
+              <span style="color:var(--accent)">📞</span> 0241708799
+            </a>
+            <a href="https://wa.me/233505760204" style="font-family:'DM Mono',monospace;font-size:11px;color:#9090A8;text-decoration:none;display:flex;gap:8px;align-items:center;">
+              <span style="color:var(--accent)">💬</span> 0505760204 (WhatsApp)
+            </a>
+            <a href="https://github.com/Graphils" target="_blank" style="font-family:'DM Mono',monospace;font-size:11px;color:#9090A8;text-decoration:none;display:flex;gap:8px;align-items:center;">
+              <span style="color:var(--accent)">⌨</span> github.com/Graphils
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RESUME FOOTER -->
+    <div style="padding: 20px 52px; border-top: 1px solid var(--border); text-align:center;">
+      <p style="font-family:'DM Mono',monospace;font-size:10px;color:#3a3a4a;letter-spacing:0.5px;">
+        &copy; 2026 Grah Akwasi Philip. All Rights Reserved. Powered by TechTide Stratum.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
