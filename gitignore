@@ -1,0 +1,21 @@
+# PyCharm / JetBrains IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node modules (if you ever add any)
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Build outputs
+dist/
+build/
