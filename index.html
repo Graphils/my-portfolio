@@ -1422,9 +1422,9 @@
     </div>
 
     <div class="contact-form reveal" style="transition-delay:0.15s">
-      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contact-form" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="form-name" value="contact" />
-        <p style="display:none"><input name="bot-field" /></p>
+      <form action="https://formspree.io/f/xwvnzwkv" method="POST" id="contact-form" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="_subject" value="New message from your portfolio!" />
+        <input type="text" name="_gotcha" style="display:none" />
         <div class="form-group">
           <label>Your Name</label>
           <input type="text" name="name" id="cf-name" placeholder="John Doe" required />
@@ -1535,7 +1535,7 @@
   document.getElementById('menuClose').addEventListener('click', closeMobile);
   function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 
-  // NETLIFY CONTACT FORM
+  // FORMSPREE CONTACT FORM
   async function handleSubmit(e) {
     e.preventDefault();
     const form = document.getElementById('contact-form');
@@ -1544,12 +1544,20 @@
     btn.disabled = true;
     const data = new FormData(form);
     try {
-      await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data).toString() });
-      document.getElementById('form-success').style.display = 'block';
-      form.reset();
-      btn.textContent = 'Send Message →';
-      btn.disabled = false;
-      setTimeout(() => document.getElementById('form-success').style.display = 'none', 6000);
+      const res = await fetch('https://formspree.io/f/xwvnzwkv', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('form-success').style.display = 'block';
+        form.reset();
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        setTimeout(() => document.getElementById('form-success').style.display = 'none', 6000);
+      } else {
+        throw new Error('Form error');
+      }
     } catch (err) {
       btn.textContent = 'Send Message →';
       btn.disabled = false;
