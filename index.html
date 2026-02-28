@@ -1423,7 +1423,8 @@
 
     <div class="contact-form reveal" style="transition-delay:0.15s">
       <form action="https://formspree.io/f/xwvnzwkv" method="POST" id="contact-form" onsubmit="handleSubmit(event)">
-        <input type="hidden" name="_subject" value="New message from your portfolio!" />
+        <input type="hidden" name="_subject" value="🔥 New Portfolio Message from your website!" />
+        <input type="hidden" name="_replyto" value="" id="replyto-field" />
         <input type="text" name="_gotcha" style="display:none" />
         <div class="form-group">
           <label>Your Name</label>
@@ -1540,6 +1541,9 @@
     e.preventDefault();
     const form = document.getElementById('contact-form');
     const btn = form.querySelector('.form-submit');
+    // Set replyto to sender's email so Philip can reply directly
+    const emailVal = document.getElementById('cf-email').value;
+    document.getElementById('replyto-field').value = emailVal;
     btn.textContent = 'Sending...';
     btn.disabled = true;
     const data = new FormData(form);
